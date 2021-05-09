@@ -30,8 +30,45 @@ namespace Task02
 {
     class State
     {
+        public State() { }
+        private State(decimal population, decimal area)
+        {
+            Population = population;
+            Area = area;
+        }
         public decimal Population { get; set; }
         public decimal Area { get; set; }
+
+       public static State operator +(State st1, State st2)
+        {
+            return new State(st1.Population + st2.Population, st1.Area+ st2.Area);
+        }
+
+        public static bool operator >(State st1, State st2)
+        {
+            if (st1.Area <= 0 || st2.Area <= 0 || st1.Population <0 || st2.Population <0)
+                throw new ArgumentException();
+            
+            decimal density1 = st1.Population / st1.Area;
+            decimal density2 = st2.Population / st2.Area;
+            
+            if (density1 >= density2)
+                return true;
+
+            return false;
+        }
+
+        public static bool operator <(State st1, State st2)
+        {
+            if (st1.Area <= 0 || st2.Area <= 0 || st1.Population < 0 || st2.Population < 0)
+                throw new ArgumentException();
+            decimal density1 = st1.Population / st1.Area;
+            decimal density2 = st2.Population / st2.Area;
+            if (density1 >= density2)
+                return false ;
+
+            return true ;
+        }
     }
 
     class MainClass
@@ -55,12 +92,13 @@ namespace Task02
                 }
 
                 State state3 = state1 + state2;
+                Console.WriteLine(state3); 
             }
             catch (ArgumentException)
             {
                 Console.WriteLine("error");
             }
-            Console.WriteLine(state3);
+            
         }
     }
 }
