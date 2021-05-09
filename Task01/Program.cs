@@ -3,7 +3,7 @@
 /*
 Источник: https://metanit.com/
 
-Как известно, неотъемлемыми компонентами бутерброда являются хлеб и масло.
+Как известно, неотъемлемыми компонентами  бутерброда являются хлеб и масло.
 Допустим, у нас есть классы Bread, Butter, Sandwich.
 Добавьте в один из классов оператор сложения, чтобы при объединении хлеба (Bread) и масла (Butter)
 получался бутерброд (Sandwich), и, тем самым, компилировался и выполнялся без ошибок код в методе Main.
@@ -24,32 +24,41 @@ namespace Task01
     class Bread
     {
         public int Weight { get; set; }
-    }
-    class Butter
-    {
-        public int Weight { get; set; }
-    }
-    class Sandwich
-    {
-        public int Weight { get; set; }
-    }
 
-    class MainClass
-    {
-        public static void Main()
+        public static Sandwich operator +(Bread br, Butter but)
         {
-            string[] strs = Console.ReadLine().Split();
-            try
+            if (br.Weight + but.Weight >= 0)
+                return new Sandwich { Weight = br.Weight + but.Weight };
+            else
+                throw new ArgumentException();
+        }
+
+        internal  class Butter
+        {
+            public int Weight { get; set; }
+        }
+        public class Sandwich
+        {
+            public int Weight { get; set; }
+        }
+
+        class MainClass
+        {
+            public static void Main()
             {
-                Bread bread = new Bread { Weight = int.Parse(strs[0]) };
-                Butter butter = new Butter { Weight = int.Parse(strs[1]) };
-                Sandwich sandwich = bread + butter;
+                string[] strs = Console.ReadLine().Split();
+                try
+                {
+                    Bread bread = new Bread { Weight = int.Parse(strs[0]) };
+                    Butter butter = new Butter { Weight = int.Parse(strs[1]) };
+                    Sandwich sandwich = bread + butter;
+                    Console.WriteLine(sandwich.Weight);
+                }
+                catch (ArgumentException)
+                {
+                    Console.WriteLine("error");
+                }
+
             }
-            catch (ArgumentException)
-            {
-                Console.WriteLine("error");
-            }
-            Console.WriteLine(sandwich.Weight);
         }
     }
-}
