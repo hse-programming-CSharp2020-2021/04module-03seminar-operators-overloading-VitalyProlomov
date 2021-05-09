@@ -26,13 +26,51 @@
 
 namespace Task05
 {
-    class Dollar
+    public class Dollar
     {
         public decimal Sum { get; set; }
+
+        public override string ToString()
+        {
+            return (string.Format("{0:F2}", Sum)).Replace('.', ',');
+        }
+
+        public static implicit operator Euro(Dollar d)
+        {
+            return new Euro { Sum = d.Sum * new decimal(1.14) };
+        }
     }
-    class Euro
+
+
+    public static class DollarConverter
+    {
+        public static Euro ConvertToEuro(this Dollar d)
+        {
+            return new Euro { Sum = d.Sum * new decimal(1.14) };
+        }
+    }
+
+    public class Euro
     {
         public decimal Sum { get; set; }
+
+        public static explicit operator Dollar(Euro euro)
+        {
+            return new Dollar { Sum = euro.Sum / new decimal(1.14) };
+        }
+
+        public override string ToString()
+        {
+            return (string.Format("{0:F2}", Sum)).Replace('.', ',');
+        }
+    }
+
+    public static class EuroConverter
+    {
+        public static Dollar ConvertToDollar(this Euro e)
+        {
+            return new Dollar { Sum = e.Sum / new decimal(1.14) };
+        }
     }
 
     class MainClass
@@ -42,6 +80,13 @@ namespace Task05
             try
             {
 
+                Euro euro = new Euro { Sum = decimal.Parse(Console.ReadLine()) };
+                Dollar dollar = new Dollar { Sum = decimal.Parse(Console.ReadLine()) };
+                if (euro.Sum < 0 || dollar.Sum < 0)
+                    throw new ArgumentException();
+
+                Console.WriteLine((Dollar)euro);
+                Console.WriteLine((Euro)dollar);
             }
             catch (ArgumentException)
             {
