@@ -38,7 +38,7 @@ namespace Task04
         {
             //return String.Format("{0:0,00}", Gradus);
 
-            return (string.Format("{0:F2}", Gradus));
+            return (string.Format("{0:F2}", Gradus)).Replace('.',',');
         }
     }
 
@@ -53,7 +53,7 @@ namespace Task04
         }
         public override string ToString()
         {
-            return (string.Format("{0:F2}", Gradus));
+            return (string.Format("{0:F2}", Gradus)).Replace('.', ',');
         }
     }
 
