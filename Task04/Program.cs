@@ -24,21 +24,45 @@
 
 namespace Task04
 {
-    class Celcius
+    public class Celcius
     {
         public double Gradus { get; set; }
+
+        static public Fahrenheit ConvertToFr(Celcius celcius)
+        {
+            Fahrenheit retFr = new Fahrenheit() { Gradus = celcius.Gradus * 9 / 5 + 32 };
+            return retFr;
+        }
+
+        public override string ToString()
+        {
+            return String.Format("{0:0.00}", Gradus);
+        }
     }
 
-    class Fahrenheit
+    public class Fahrenheit
     {
         public double Gradus { get; set; }
+
+        static public Celcius ConvertToCelcius(Fahrenheit fahrenheit)
+        {
+            Celcius retCel = new Celcius { Gradus = (fahrenheit.Gradus - 32) * 5 / 9 };
+            return retCel;
+        }
+        public override string ToString()
+        {
+            return String.Format("{0:0.00}", Gradus);
+        }
     }
 
     class MainClass
     {
         public static void Main(string[] args)
         {
-
+            double fahrenheits = double.Parse(Console.ReadLine());
+            double celcius = double.Parse(Console.ReadLine());
+            Console.WriteLine(Fahrenheit.ConvertToCelcius(new Fahrenheit { Gradus = fahrenheits }));
+            Console.WriteLine(Celcius.ConvertToFr(new Celcius { Gradus = celcius }));
         }
     }
 }
