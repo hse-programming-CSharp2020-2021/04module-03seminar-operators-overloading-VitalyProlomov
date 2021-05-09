@@ -27,13 +27,13 @@ namespace Task01
 
         public static Sandwich operator +(Bread br, Butter but)
         {
-            if (br.Weight + but.Weight >= 0)
+            if (br.Weight + but.Weight > 0)
                 return new Sandwich { Weight = br.Weight + but.Weight };
             else
                 throw new ArgumentException();
         }
 
-        internal  class Butter
+        internal class Butter
         {
             public int Weight { get; set; }
         }
@@ -58,7 +58,8 @@ namespace Task01
                 {
                     Console.WriteLine("error");
                 }
-
+                // 
             }
         }
     }
+}
