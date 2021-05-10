@@ -79,7 +79,6 @@ namespace Task05
         {
             try
             {
-
                 Euro euro = new Euro { Sum = decimal.Parse(Console.ReadLine()) };
                 Dollar dollar = new Dollar { Sum = decimal.Parse(Console.ReadLine()) };
                 if (euro.Sum < 0 || dollar.Sum < 0)
